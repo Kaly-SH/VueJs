@@ -23,7 +23,4 @@ export class Comment {
   @ManyToOne(() => Artwork, (artwork) => artwork.comments)
   @JoinColumn({ name: 'artwork_id' })
   artwork: Artwork;
-
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
 }

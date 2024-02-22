@@ -25,9 +25,6 @@ export class Artwork {
   artistName: string;
 
   @Column()
-  publicationDate: Date;
-
-  @Column()
   description: string;
 
   @Column({ default: 0 })

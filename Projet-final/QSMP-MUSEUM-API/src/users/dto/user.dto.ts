@@ -12,24 +12,24 @@ export class CreateUserDto {
   @IsNotEmpty()
   password: string;
 
+  @IsOptional() // Mis à jour pour être facultatif
   twitchPseudo?: string;
 
+  @IsOptional() // Mis à jour pour être facultatif
   role?: string;
 }
 
 export class UserDto {
   id: number;
-  uuid: string; // Ajout de UUID
   pseudo: string;
   email: string;
   twitchPseudo?: string;
   role?: string;
 
   static fromEntity(user: User): UserDto {
-    const { id, uuid, pseudo, email, twitchPseudo, role } = user;
+    const { id, pseudo, email, twitchPseudo, role } = user;
     const userDto = new UserDto();
     userDto.id = id;
-    userDto.uuid = uuid; // Inclure UUID
     userDto.pseudo = pseudo;
     userDto.email = email;
     userDto.twitchPseudo = twitchPseudo;

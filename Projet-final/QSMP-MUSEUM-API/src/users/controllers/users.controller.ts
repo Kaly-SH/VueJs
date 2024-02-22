@@ -14,26 +14,31 @@ import { CreateUserDto, UpdateUserDto, UserDto } from '../dto/user.dto';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @Get()
+  async findAll(): Promise<UserDto[]> {
+    return this.usersService.findAll();
+  }
+
   @Post()
   async create(@Body() createUserDto: CreateUserDto): Promise<UserDto> {
     return this.usersService.createUser(createUserDto);
   }
 
-  @Get(':uuid')
-  async findOne(@Param('uuid') uuid: string): Promise<UserDto> {
-    return this.usersService.findOneByUuid(uuid);
+  @Get(':id')
+  async findOne(@Param('id') id: number): Promise<UserDto> {
+    return this.usersService.findOneById(id);
   }
 
-  @Put(':uuid')
+  @Put(':id')
   async update(
-    @Param('uuid') uuid: string,
+    @Param('id') id: number,
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<UserDto> {
-    return this.usersService.updateUser(uuid, updateUserDto);
+    return this.usersService.updateUser(id, updateUserDto);
   }
 
-  @Delete(':uuid')
-  async remove(@Param('uuid') uuid: string): Promise<void> {
-    return this.usersService.removeUser(uuid);
+  @Delete(':id')
+  async remove(@Param('id') id: number): Promise<void> {
+    return this.usersService.removeUser(id);
   }
 }
