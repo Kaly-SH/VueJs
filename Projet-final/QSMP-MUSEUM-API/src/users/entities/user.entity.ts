@@ -7,7 +7,7 @@ export class User {
   id: number;
 
   @Column()
-  pseudo: string;
+  username: string;
 
   @Column()
   email: string;
@@ -16,7 +16,7 @@ export class User {
   password: string;
 
   @Column({ nullable: true })
-  twitchPseudo: string;
+  twitchUsername: string;
 
   @Column({ nullable: true })
   role: string;

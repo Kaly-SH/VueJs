@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Param, Get, Delete, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Param,
+  Get,
+  Delete,
+  NotFoundException,
+} from '@nestjs/common';
 import { CommentsService } from '../services/comments.service';
 import { CreateCommentDto, CommentDto } from '../dto/comment.dto';
 
@@ -11,6 +19,11 @@ export class CommentsController {
     @Body() createCommentDto: CreateCommentDto,
   ): Promise<CommentDto> {
     return this.commentsService.createComment(createCommentDto);
+  }
+
+  @Get()
+  async findAll(): Promise<CommentDto[]> {
+    return this.commentsService.findAllComments();
   }
 
   @Get(':id')

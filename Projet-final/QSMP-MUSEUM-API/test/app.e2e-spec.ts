@@ -21,7 +21,7 @@ describe('AppController (e2e)', () => {
   it('/users (POST)', async () => {
     const res = await request(app.getHttpServer())
       .post('/users')
-      .send({ pseudo: 'test', email: 'test@example.com', password: 'password' })
+      .send({ username: 'test', email: 'test@example.com', password: 'password' })
       .expect(201);
     createdUserId = res.body.id;
   });
@@ -39,7 +39,7 @@ describe('AppController (e2e)', () => {
   it('/users/:id (PUT)', () => {
     return request(app.getHttpServer())
       .put(`/users/${createdUserId}`)
-      .send({ pseudo: 'newTest' })
+      .send({ username: 'newTest' })
       .expect(200);
   });
 
@@ -122,7 +122,7 @@ describe('AppController (e2e)', () => {
   it('/users (POST)', async () => {
     const res = await request(app.getHttpServer())
       .post('/users')
-      .send({ pseudo: 'test', email: 'test@example.com', password: 'password' })
+      .send({ username: 'test', email: 'test@example.com', password: 'password' })
       .expect(201);
     createdUserId = res.body.id;
   });

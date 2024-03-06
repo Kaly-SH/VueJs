@@ -17,12 +17,12 @@ export class UsersService {
   }
 
   async createUser(createUserDto: CreateUserDto): Promise<UserDto> {
-    const { pseudo, email, password, twitchPseudo, role } = createUserDto;
+    const { username, email, password, twitchUsername, role } = createUserDto;
     const newUser = this.usersRepository.create({
-      pseudo,
+      username,
       email,
       password,
-      twitchPseudo,
+      twitchUsername,
       role,
     });
     await this.usersRepository.save(newUser);

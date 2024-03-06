@@ -3,7 +3,7 @@ import { User } from '../entities/user.entity';
 
 export class CreateUserDto {
   @IsNotEmpty()
-  pseudo: string;
+  username: string;
 
   @IsNotEmpty()
   @IsEmail()
@@ -13,7 +13,7 @@ export class CreateUserDto {
   password: string;
 
   @IsOptional() // Mis à jour pour être facultatif
-  twitchPseudo?: string;
+  twitchUsername?: string;
 
   @IsOptional() // Mis à jour pour être facultatif
   role?: string;
@@ -21,18 +21,18 @@ export class CreateUserDto {
 
 export class UserDto {
   id: number;
-  pseudo: string;
+  username: string;
   email: string;
-  twitchPseudo?: string;
+  twitchUsername?: string;
   role?: string;
 
   static fromEntity(user: User): UserDto {
-    const { id, pseudo, email, twitchPseudo, role } = user;
+    const { id, username, email, twitchUsername, role } = user;
     const userDto = new UserDto();
     userDto.id = id;
-    userDto.pseudo = pseudo;
+    userDto.username = username;
     userDto.email = email;
-    userDto.twitchPseudo = twitchPseudo;
+    userDto.twitchUsername = twitchUsername;
     userDto.role = role;
     return userDto;
   }
@@ -40,7 +40,7 @@ export class UserDto {
 
 export class UpdateUserDto {
   @IsOptional()
-  pseudo?: string;
+  username?: string;
 
   @IsOptional()
   email?: string;
@@ -49,7 +49,7 @@ export class UpdateUserDto {
   password?: string;
 
   @IsOptional()
-  twitchPseudo?: string;
+  twitchUsername?: string;
 
   @IsOptional()
   role?: string;
