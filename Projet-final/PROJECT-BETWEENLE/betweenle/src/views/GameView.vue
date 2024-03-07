@@ -1,10 +1,11 @@
 <script lang="ts" setup>
   import { ref, onBeforeMount, reactive } from 'vue';
   import { frenchWords } from '@/constants/fr';
+  import AppDisplayWords from '@/components/game/AppDisplayWords.vue';
 
   let allWord: string[] = reactive([]);
-  let wordsBefore: string;
-  let wordsAfter: string;
+  let wordsBefore: string = "?????";
+  let wordsAfter: string = "?????";
   let wordToFind: string;
   let isLoading = ref(false);
   let isWin = ref(false);
@@ -65,8 +66,8 @@
     isWin.value = false;
     isLoose.value = false;
     nbTry.value = 0;
-    wordsBefore = "";
-    wordsAfter = "";
+    wordsBefore = "?????";
+    wordsAfter = "?????";
     allWord = frenchWords;
     wordToFind = frenchWords[Math.floor(Math.random() * frenchWords.length)];
     isLoading.value = false;
@@ -75,30 +76,48 @@
 </script>
 
 <template>
-  <router-link to="/">HOME</router-link>
+  <router-link to="/">
+    <button class="btn btn-primary rounded-circle p-3 lh-1 m-1">
+      <i class="bi bi-house-door-fill" style="height: 24px;width: 24px;"></i>
+    </button>
+  </router-link>
   <div v-if="isLoading">
     <p>Loading...</p>
   </div>
-  <main v-else>
-    <h1>Find the 5 letters word</h1>
+  <main v-else  class="px-4 py-5 my-5 text-center game">
+    <h1>Trouve le mots secret de 5 lettres</h1>
     <!-- Add wordToFind to the message -->
-    <p v-if="isWin">You win !</p> 
-    <p v-if="isLoose">You loose ! {{ wordToFind }}</p>
-    <p>Try: {{ nbTry }}/14</p>
-    <div>
-      <p v-if="wordsBefore">{{ wordsBefore }}</p>
-      <p v-else> ? ? ? ? ? </p>
+    <div v-if="isWin">
+      <p>Bravo tu as trouvé !</p>
+      <button @click="replay" class="btn btn-warning rounded-pill px-3 m-3">Rejouer</button>
+    </div> 
+    <div v-if="isLoose">
+      <p>Dommage ! Le mot était {{ wordToFind }}</p>
+      <button @click="replay" class="btn btn-warning rounded-pill px-3 m-3">Rejouer</button>
     </div>
-    <p v-if="!isWin"> ? ? ? ? ? </p>
-    <p v-else>{{ wordToFind }}</p>
-    <div>
-      <p v-if="wordsAfter">{{ wordsAfter }}</p>
-      <p v-else> ? ? ? ? ? </p>
+
+    <p>Essai : {{ nbTry }}/14</p>
+
+    <AppDisplayWords :words-before="wordsBefore" :words-after="wordsAfter" :word-to-find="wordToFind" :is-win="isWin" />
+
+    <!-- <p>Word to find: {{ wordToFind }}</p> -->
+    <div class="input-group mb-3 mt-4">
+      <span class="input-group-text" id="basic-addon1">Réponse</span>
+      <input type="text" v-model="word" ref="input" class="form-control" placeholder="?????" aria-label="Username" aria-describedby="basic-addon1" style="text-transform:uppercase" @keyup.enter="ValidateWord(word)" v-on:keypress="isLetter($event)" autofocus>
     </div>
-    <p>Word to find: {{ wordToFind }}</p>
-    <input v-model="word" type="text" ref="input" style="text-transform:uppercase" @keyup.enter="ValidateWord(word)" v-on:keypress="isLetter($event)" autofocus/>
-    <button @click="ValidateWord(word)">Validate</button>
-    <button @click="replay">Replay</button>
+
+    <div>
+      <button @click="ValidateWord(word)" class="btn btn-success rounded-pill px-3 m-3">Valider</button>
+    </div>
    
   </main>
 </template>
+
+<style scoped lang="scss">
+  .game {
+    .input-group {
+      width: 300px;
+      margin: auto;
+    }
+  }
+</style>

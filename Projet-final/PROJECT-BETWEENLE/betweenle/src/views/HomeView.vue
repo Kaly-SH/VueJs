@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
-    <h1> Welcome to Betweenle </h1>
-    <router-link to="/game">START</router-link>
+  <div class="px-4 py-5 my-5 text-center">
+    <h1>BETWEENLE</h1>
+    <router-link to="/game"><button class="btn btn-success rounded-pill px-3">JOUER</button></router-link>
   </div>
 </template>
 
